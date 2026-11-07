@@ -1,0 +1,19 @@
+from docx import Document
+from pptx import Presentation
+
+doc = Document("input.docx")
+
+prs = Presentation()
+
+for para in doc.paragraphs:
+    text = para.text.strip()
+
+    if text:
+        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        slide.shapes.title.text = text[:50]
+
+        slide.placeholders[1].text = text
+
+prs.save("output.pptx")
+
+print("PowerPoint created successfully!")
